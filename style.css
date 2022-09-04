@@ -42,7 +42,7 @@ body{
     outline: none;
     background-color: #ededed;
 }
-#add-todo
+#add-todo,#edit-todo
 {
     border: none;
     background-color: #ededed;
