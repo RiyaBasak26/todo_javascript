@@ -94,7 +94,7 @@ li:hover{
     align-items: center;
     background-color: #0c74b9;
 }
-#finalTodo{
+#CompletedTodo{
     min-height: 150px;
     font-size: 22px;
     font-weight: 600;
@@ -105,7 +105,7 @@ li:hover{
 .strike{
     text-decoration: line-through;
 }
-#FinalTodoList
+#completed-Todo-list
 {
     display: flex;
     justify-content: space-between;

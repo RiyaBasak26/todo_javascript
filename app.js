@@ -5,7 +5,7 @@ let isInEditMode = false;
 let todoInputBox = document.getElementById("todo-input");
 let addButton = document.getElementById("add-todo");
 let activeTodoList = document.getElementById("todo-item");
-let completedTodoList = document.getElementById("finalTodo");
+let completedTodoList = document.getElementById("CompletedTodo");
 let addEditedTodoButton = document.getElementById("add-edited-todo");
 /*----------DOM element reference----------*/
 let selectedIndex = -1;
@@ -62,7 +62,7 @@ const checkedTodo=(index)=> {
   setTimeout(function () {
   let checkedTodoValue = myTodo[index].title;
   let checkedTodoList = document.createElement("li");
-  checkedTodoList.id = "FinalTodoList";
+  checkedTodoList.id = "completed-Todo-list";
   checkedTodoList.appendChild(document.createTextNode(checkedTodoValue));
   completedTodoList.appendChild(checkedTodoList);
   let deleteButton = document.createElement("button");
@@ -85,7 +85,7 @@ const deleteTodo=(index) =>{
 /*-----it help to delete the todo from checked todos----  */
 const deleteTheCheckedTodo=()=> {
   if (confirm("Do you want to delete this item.") == true) {
-    document.getElementById("FinalTodoList").remove();
+    document.getElementById("completed-Todo-list").remove();
   } else {
   }
 }
