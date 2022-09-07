@@ -6,7 +6,7 @@ let todoInputBox = document.getElementById("todo-input");
 let addButton = document.getElementById("add-todo");
 let activeTodoList = document.getElementById("todo-item");
 let completedTodoList = document.getElementById("finalTodo");
-let addEditedTodoBox = document.getElementById("edit-todo");
+let addEditedTodoButton = document.getElementById("add-edited-todo");
 /*----------DOM element reference----------*/
 let selectedIndex = -1;
 
@@ -23,7 +23,7 @@ const onChangeHandler = (event) => {
   }
 };
 
-function createToDo() {
+const createToDo=()=> {
   if (taskTitle.length) {
     myTodo.push({
       title: taskTitle,
@@ -36,9 +36,8 @@ function createToDo() {
   }
 }
 
-function showTodo() {
+const showTodo=()=> {
   let data = "";
-  console.log("jhgajhgad", myTodo[myTodo.length - 1]);
   const totalNumberOfTODOs = myTodo.length - 1;
   const todoToBeAdded = myTodo[totalNumberOfTODOs];
   data += `<div id="todo-div">`;
@@ -57,28 +56,27 @@ function showTodo() {
   document.getElementById("todo-item").appendChild(li);
 }
 
-function checkedTodo(i) {
+const checkedTodo=(i)=> {
   let Todospan = document.querySelector(`.Todo-${i}`);
   Todospan.classList.add("strike");
   setTimeout(function () {
-    finalTodoUpdate(i);
+    finalTodo(i);
   }, 500);
 }
-function deleteTodo(item) {
+const deleteTodo=(item) =>{
   let text = "Do you want to delete this item.";
   if (confirm(text) == true) {
     let todo = document.getElementById(`item-${item}`);
     todo.remove();
   } else {
   }
-  console.log(item);
 }
-function finalTodoUpdate(i) {
+const  finalTodo=(i)=>{
   let checkedTodoValue = myTodo[i].title;
   let finalLI = document.createElement("li");
   finalLI.id = "FinalTodoList";
   finalLI.appendChild(document.createTextNode(checkedTodoValue));
-  document.getElementById("finalTodo").appendChild(finalLI);
+  completedTodoList.appendChild(finalLI);
   let deleteButton = document.createElement("button");
   deleteButton.innerHTML = "delete";
   deleteButton.className = "material-symbols-outlined icon";
@@ -87,7 +85,7 @@ function finalTodoUpdate(i) {
   let todo = document.getElementById(`item-${i}`);
   todo.remove();
 }
-function deleteFinalTodo() {
+const deleteFinalTodo=()=> {
   let text = "Do you want to delete this item.";
   if (confirm(text) == true) {
     document.getElementById("FinalTodoList").remove();
@@ -95,17 +93,16 @@ function deleteFinalTodo() {
   }
 }
 
-function editMode(item) {
+const editMode=(item)=> {
   selectedIndex = item;
   document.getElementById("todo-input").value = myTodo[item].title;
-  addEditedTodoBox.style.display = "block";
+  addEditedTodoButton.style.display = "block";
   addButton.style.display = "none";
 }
-function addEditTodo() {
-  addEditedTodoBox.style.display = "none";
+const addEditTodo=()=> {
+  addEditedTodoButton.style.display = "none";
   addButton.style.display = "block";
   let editedTodo = todoInputBox.value;
-  console.log(myTodo[selectedIndex].title);
   myTodo[selectedIndex].title = editedTodo;
   let span = document.querySelector(`.Todo-${selectedIndex}`);
   span.innerHTML = editedTodo;
@@ -116,5 +113,5 @@ function addEditTodo() {
 /*----------Event Listener Attachment----------*/
 todoInputBox.addEventListener("keyup", onChangeHandler);
 addButton.addEventListener("click", createToDo);
-addEditedTodoBox.addEventListener("click", addEditTodo);
+addEditedTodoButton.addEventListener("click", addEditTodo);
 /*----------Event Listener Attachment----------*/
