@@ -80,6 +80,7 @@ const deleteTodo=(index) =>{
     let todo = document.getElementById(index);
     todo.remove();
   } else {
+    return
   }
 }
 /*-----it help to delete the todo from checked todos----  */
@@ -87,6 +88,7 @@ const deleteTheCheckedTodo=()=> {
   if (confirm("Do you want to delete this item.") == true) {
     document.getElementById("completed-Todo-list").remove();
   } else {
+    return 
   }
 }
 /*------on click on edit button it will go to edit mode-----*/
