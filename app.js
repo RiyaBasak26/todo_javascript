@@ -15,14 +15,14 @@ const onChangeHandler = (event) => {
     if (selectedIndex == -1) {
       createToDo();
     } else {
-      addEditTodo();
+      replaceTodo();
     }
   } else {
     const title = event.target.value.trim();
     taskTitle = title;
   }
 };
-
+/*-------it help to push the todo into array---------*/
 const createToDo=()=> {
   if (taskTitle.length) {
     myTodo.push({
@@ -35,71 +35,69 @@ const createToDo=()=> {
     alert("You must write something!");
   }
 }
-
+/*-------it help to show the todo in list format--------*/
 const showTodo=()=> {
   let data = "";
   const totalNumberOfTODOs = myTodo.length - 1;
   const todoToBeAdded = myTodo[totalNumberOfTODOs];
   data += `<div id="todo-div">`;
   data += `<input type="checkbox" onchange=checkedTodo(${totalNumberOfTODOs}) class="checked">`;
-  data += `<span class="Todo-${totalNumberOfTODOs}" style="width: 75%; word-break: break-all;">${todoToBeAdded.title}</span>`;
-  data += `<span class="material-symbols-outlined icon" onclick= editMode(${totalNumberOfTODOs})>
+  data += `<span class="Todo-${totalNumberOfTODOs} spanWidth" >${todoToBeAdded.title}</span>`;
+  data += `<span class="material-symbols-outlined icon" onclick= editTodo(${totalNumberOfTODOs})>
   edit_note
   </span>`;
   data += `<span class="material-symbols-outlined icon" onclick= deleteTodo(${totalNumberOfTODOs}) >
   delete
   </span>`;
   data += "</div>";
-  var li = document.createElement("li");
-  li.id = `item-${totalNumberOfTODOs}`;
+  const li = document.createElement("li");
+  li.id = totalNumberOfTODOs;
   li.innerHTML = data;
   document.getElementById("todo-item").appendChild(li);
 }
-
-const checkedTodo=(i)=> {
-  let Todospan = document.querySelector(`.Todo-${i}`);
+/*-----------it help to checked the todo and remove it from the list------------*/
+const checkedTodo=(index)=> {
+  let Todospan = document.querySelector(`.Todo-${index}`);
   Todospan.classList.add("strike");
   setTimeout(function () {
-    finalTodo(i);
+  let checkedTodoValue = myTodo[index].title;
+  let checkedTodoList = document.createElement("li");
+  checkedTodoList.id = "FinalTodoList";
+  checkedTodoList.appendChild(document.createTextNode(checkedTodoValue));
+  completedTodoList.appendChild(checkedTodoList);
+  let deleteButton = document.createElement("button");
+  deleteButton.innerHTML = "delete";
+  deleteButton.className = "material-symbols-outlined icon";
+  deleteButton.addEventListener("click", deleteTheCheckedTodo);
+  checkedTodoList.appendChild(deleteButton);
+  let list = document.getElementById(index);
+  list.remove();
   }, 500);
 }
-const deleteTodo=(item) =>{
-  let text = "Do you want to delete this item.";
-  if (confirm(text) == true) {
-    let todo = document.getElementById(`item-${item}`);
+/*-----it help to delete the todo from list------ */
+const deleteTodo=(index) =>{
+  if (confirm("Do you want to delete this item.") == true) {
+    let todo = document.getElementById(index);
     todo.remove();
   } else {
   }
 }
-const  finalTodo=(i)=>{
-  let checkedTodoValue = myTodo[i].title;
-  let finalLI = document.createElement("li");
-  finalLI.id = "FinalTodoList";
-  finalLI.appendChild(document.createTextNode(checkedTodoValue));
-  completedTodoList.appendChild(finalLI);
-  let deleteButton = document.createElement("button");
-  deleteButton.innerHTML = "delete";
-  deleteButton.className = "material-symbols-outlined icon";
-  deleteButton.addEventListener("click", deleteFinalTodo);
-  finalLI.appendChild(deleteButton);
-  let todo = document.getElementById(`item-${i}`);
-  todo.remove();
-}
-const deleteFinalTodo=()=> {
-  let text = "Do you want to delete this item.";
-  if (confirm(text) == true) {
+/*-----it help to delete the todo from checked todos----  */
+const deleteTheCheckedTodo=()=> {
+  if (confirm("Do you want to delete this item.") == true) {
     document.getElementById("FinalTodoList").remove();
   } else {
   }
 }
-
-const editMode=(item)=> {
-  selectedIndex = item;
-  document.getElementById("todo-input").value = myTodo[item].title;
+/*------on click on edit button it will go to edit mode-----*/
+const editTodo=(index)=> {
+  selectedIndex = index;
+  document.getElementById("todo-input").value = myTodo[index].title;
   addEditedTodoButton.style.display = "block";
   addButton.style.display = "none";
 }
-const addEditTodo=()=> {
+/*-------it will replace the existing todo with the edited one on click on add button-----*/
+const replaceTodo=()=> {
   addEditedTodoButton.style.display = "none";
   addButton.style.display = "block";
   let editedTodo = todoInputBox.value;
@@ -113,5 +111,5 @@ const addEditTodo=()=> {
 /*----------Event Listener Attachment----------*/
 todoInputBox.addEventListener("keyup", onChangeHandler);
 addButton.addEventListener("click", createToDo);
-addEditedTodoButton.addEventListener("click", addEditTodo);
+addEditedTodoButton.addEventListener("click", replaceTodo);
 /*----------Event Listener Attachment----------*/

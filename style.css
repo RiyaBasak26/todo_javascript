@@ -129,6 +129,11 @@ li:hover{
 .icon:hover{
     color: red;
 }
-#add-edited-todo{
+.display-none{
     display: none;
+}
+.spanWidth
+{
+    width: 75%;
+    word-break: break-all;
 }
