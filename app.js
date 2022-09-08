@@ -62,7 +62,7 @@ const checkedTodo = (index) => {
   setTimeout(function () {
     const checkedTodoValue = myTodo[index].title;
     const checkedTodoList = document.createElement("li");
-    checkedTodoList.id = "completed-Todo-list";
+    checkedTodoList.className = "completed-Todo-list";
     checkedTodoList.appendChild(document.createTextNode(checkedTodoValue));
     completedTodoList.appendChild(checkedTodoList);
     const deleteButton = document.createElement("button");
@@ -84,9 +84,9 @@ const deleteTodo = (index) => {
   }
 };
 /*-----it help to delete the todo from checked todos----  */
-const deleteTheCheckedTodo = () => {
+const deleteTheCheckedTodo = (e) => {
   if (confirm("Do you want to delete this item?") === true) {
-    document.getElementById("completed-Todo-list").remove();
+    e.currentTarget.parentNode.remove();
   } else {
     return;
   }
