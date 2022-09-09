@@ -18,7 +18,10 @@
       <h1 class="header">TODO List</h1>
       <span class="todo-area">
         <input type="text" id="todo-input" />
-        <button id="add-todo">
+        <button id="add-todo" class="add">
+          <span class="material-symbols-outlined addIcon"> add </span>
+        </button>
+        <button id="add-edited-todo"  class="add display-none">
           <span class="material-symbols-outlined addIcon"> add </span>
         </button>
       </span>
@@ -26,7 +29,7 @@
 
       <div class="resultTodo">
         <h2 class="resultHeader">Completed TODO List</h2>
-        <ul id="finalTodo"></ul>
+        <ul id="CompletedTodo"></ul>
       </div>
     </div>
     
